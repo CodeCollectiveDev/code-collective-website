@@ -23,7 +23,6 @@ if (revealTargets.length) {
 }
 
 const projectCards = document.querySelectorAll(".project-card");
-const shouldToggleOnTap = window.matchMedia("(hover: none)").matches;
 
 const closeOtherCards = (activeCard) => {
     projectCards.forEach((card) => {
@@ -43,13 +42,7 @@ projectCards.forEach((card) => {
         }
     };
 
-    card.addEventListener("click", (event) => {
-        if (!shouldToggleOnTap) {
-            return;
-        }
-        event.preventDefault();
-        toggleCard();
-    });
+    card.addEventListener("click", toggleCard);
 
     card.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -60,9 +53,6 @@ projectCards.forEach((card) => {
 });
 
 document.addEventListener("click", (event) => {
-    if (!shouldToggleOnTap) {
-        return;
-    }
     if (![...projectCards].some((card) => card.contains(event.target))) {
         closeOtherCards();
     }
